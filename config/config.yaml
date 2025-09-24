@@ -1,0 +1,96 @@
+# Test Case Generator Configuration
+# This is a default configuration file. Modify as needed for your environment.
+
+# LLM Configuration
+llm:
+  provider: "openai"  # openai, anthropic, local
+  api_key: "${LLM_API_KEY}"  # Set via environment variable
+  model: "gpt-4"
+  temperature: 0.7
+  max_tokens: 2000
+  timeout: 30
+
+# External Integrations
+integrations:
+  testrail:
+    url: "${TESTRAIL_URL}"
+    username: "${TESTRAIL_USERNAME}"
+    api_key: "${TESTRAIL_API_KEY}"
+  
+  jira:
+    url: "${JIRA_URL}"
+    username: "${JIRA_USERNAME}"
+    api_token: "${JIRA_API_TOKEN}"
+  
+  figma:
+    api_key: "${FIGMA_API_KEY}"
+    file_id: "${FIGMA_FILE_ID}"
+  
+  confluence:
+    url: "${CONFLUENCE_URL}"
+    username: "${CONFLUENCE_USERNAME}"
+    api_token: "${CONFLUENCE_API_TOKEN}"
+
+# Parsing Configuration
+parsing:
+  requirements:
+    formats: ["confluence", "word", "pdf", "text"]
+    priority_keywords: ["must", "should", "could", "won't"]
+    extract_ids: true
+    extract_priorities: true
+  
+  figma:
+    file_id: "${FIGMA_FILE_ID}"
+    components: ["button", "input", "dropdown", "checkbox", "radio", "textarea"]
+    extract_styles: true
+    extract_interactions: true
+  
+  screenshots:
+    ocr_engine: "paddleocr"  # paddleocr, tesseract
+    extract_text: true
+    detect_components: true
+    image_formats: ["png", "jpg", "jpeg", "bmp", "tiff"]
+  
+  api_specs:
+    formats: ["openapi", "swagger", "postman"]
+    extract_endpoints: true
+    extract_parameters: true
+    extract_responses: true
+
+# Test Case Generation Configuration
+generation:
+  test_case_types: ["FUNC", "BOUND", "NEG", "PERM", "SEC", "PERF"]
+  priorities: ["P0", "P1", "P2"]
+  max_cases_per_requirement: 10
+  enable_ai_generation: true
+  enable_rule_generation: true
+  include_preconditions: true
+  include_test_data: true
+  generate_negative_cases: true
+  generate_boundary_cases: true
+  generate_security_cases: true
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_path: "./logs/testcase_generator.log"
+  max_file_size: 10485760  # 10MB
+  backup_count: 5
+
+# General Settings
+project_name: "Test Case Generator"
+output_dir: "./output"
+temp_dir: "./temp"
+cache_dir: "./cache"
+environment: "development"
+debug: false
+
+# Advanced Settings
+advanced:
+  parallel_processing: true
+  max_workers: 4
+  cache_ttl: 3600  # 1 hour
+  retry_attempts: 3
+  retry_delay: 1  # seconds
+  request_timeout: 30  # seconds
